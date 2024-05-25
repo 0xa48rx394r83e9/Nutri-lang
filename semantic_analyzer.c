@@ -3,6 +3,7 @@
 #include <string.h>
 #include "semantic_analyzer.h"
 #include "ast.h"
+#include "main.h"
 
 // Symbol table entry
 typedef struct

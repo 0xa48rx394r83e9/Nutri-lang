@@ -3,6 +3,7 @@
 #include <string.h>
 #include "interpreter.h"
 #include "ast.h"
+#include "main.h"
 
 // Variable entry
 typedef struct
