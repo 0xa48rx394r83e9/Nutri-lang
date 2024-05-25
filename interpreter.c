@@ -50,6 +50,58 @@ VariableEntry *lookup_variable(char *name)
     return NULL;
 }
 
+// Function to interpret a function call
+void interpret_function_call(AST *ast)
+{
+    // Perform function call logic here
+    // You can define a separate function table to store function definitions
+    // and look up the function by its name to execute it
+    // For simplicity, let's assume the function just prints its name and arguments
+    printf("Function call: %s\n", ast->function_call_name);
+    printf("Arguments:\n");
+    for (int i = 0; i < ast->function_call_argument_count; i++)
+    {
+        interpret(&ast->function_call_arguments[i]);
+        VariableEntry *entry = lookup_variable(ast->function_call_arguments[i].identifier_name);
+        if (entry == NULL)
+        {
+            fprintf(stderr, "Undefined variable in function argument\n");
+            exit(1);
+        }
+        if (entry->type == AST_INTEGER)
+        {
+            printf("%d\n", entry->integer_value);
+        }
+        else if (entry->type == AST_FLOAT)
+        {
+            printf("%f\n", entry->float_value);
+        }
+    }
+}
+
+// Function to interpret a return statement
+void interpret_return_statement(AST *ast)
+{
+    interpret(ast->return_value);
+    // Perform return logic here
+    // You can store the return value in a separate variable or pass it up the call stack
+    // For simplicity, let's just print the return value
+    VariableEntry *entry = lookup_variable(ast->return_value->identifier_name);
+    if (entry == NULL)
+    {
+        fprintf(stderr, "Undefined variable in return statement\n");
+        exit(1);
+    }
+    if (entry->type == AST_INTEGER)
+    {
+        printf("Return value: %d\n", entry->integer_value);
+    }
+    else if (entry->type == AST_FLOAT)
+    {
+        printf("Return value: %f\n", entry->float_value);
+    }
+}
+
 // Function to interpret a binary expression
 void interpret_binary_expression(AST *ast)
 {
@@ -181,13 +233,7 @@ void interpret(AST *ast)
     }
     case AST_FUNCTION_CALL:
     {
-        // Interpret function call arguments
-        for (int i = 0; i < ast->function_call_argument_count; i++)
-        {
-            interpret(&ast->function_call_arguments[i]);
-        }
-        // Perform function call
-        // ...
+        interpret_function_call(ast);
         break;
     }
     case AST_IF_STATEMENT:
@@ -247,9 +293,7 @@ void interpret(AST *ast)
     }
     case AST_RETURN_STATEMENT:
     {
-        interpret(ast->return_value);
-        // Perform return
-        // ...
+        interpret_return_statement(ast);
         break;
     }
     case AST_BLOCK:
