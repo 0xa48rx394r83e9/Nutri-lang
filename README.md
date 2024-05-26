@@ -1,6 +1,6 @@
 # Nutri-lang
 
-![ntri-example.png]
+![example](ntri-example.png)
 
 1. 📚 **Define the Language Specification**
 
