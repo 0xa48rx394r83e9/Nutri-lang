@@ -1,5 +1,7 @@
 # Nutri-lang
 
+![ntri-example.png]
+
 1. 📚 **Define the Language Specification**
 
    - Syntax and Grammar:
