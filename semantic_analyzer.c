@@ -5,17 +5,6 @@
 #include "ast.h"
 #include "main.h"
 
-// Symbol table entry
-typedef struct
-{
-    char *name;
-    int type;
-} SymbolEntry;
-
-// Symbol table
-SymbolEntry *symbol_table = NULL;
-int symbol_count = 0;
-
 // Function to add a symbol to the symbol table
 void add_symbol(char *name, int type)
 {

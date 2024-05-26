@@ -5,22 +5,6 @@
 #include "ast.h"
 #include "main.h"
 
-// Variable entry
-typedef struct
-{
-    char *name;
-    int type;
-    union
-    {
-        int integer_value;
-        float float_value;
-    };
-} VariableEntry;
-
-// Variable table
-VariableEntry *variable_table = NULL;
-int variable_count = 0;
-
 // Function to add a variable to the variable table
 void add_variable(char *name, int type, void *value)
 {
